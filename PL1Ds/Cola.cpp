@@ -125,5 +125,22 @@ string Cola::returnState(string id_pkt){
         return "No encontrado";
     }
 }
-
+string Cola::toString() {
+    if (empty()){
+       return "Cola Vacía\n";
+    }
+    else if (front==rear){
+        return front->p.toString();
+    }
+    else {
+        pointer auxp = front;
+        string c="";
+        while (auxp->next!= nullptr){
+            c+=auxp->p.toString();
+            auxp=auxp->next;
+        }
+        c+=auxp->p.toString();
+        return c;
+    }
+}
 

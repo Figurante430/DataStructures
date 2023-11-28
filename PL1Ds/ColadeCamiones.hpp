@@ -27,5 +27,6 @@ public:
     string returnState(string id_pkt);
     void showCamiones();
     void mostrarContentCamiones();
+    string toString ();
 };
 #endif //PL1DS_COLADEPILAS_HPP

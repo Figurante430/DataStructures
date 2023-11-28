@@ -91,22 +91,6 @@ void Pila::entregar_paquetes(Cola &zona_entrega) {
     setState(statePila[2]);
 }
 
-void Pila::terminar_entrega(Cola &zona_cliente){
-    Pila auxp;
-    setState(statePila[1]);
-    while (!this->empty()){
-        auxp.push(pop());
-    }
-    setState(statePila[2]);
-    this->makenull();
-    while (!auxp.empty()){
-        Paquete p= auxp.pop();
-        p.setState(3);
-        zona_cliente.enqueue(p);
-    }
-    setState(statePila[0]);
-}
-
 int Pila::getTop() {
     return top;
 }
@@ -129,10 +113,10 @@ string Pila::returnState(string id_pkt) {
 }
 void Pila::show_Camion() {
     if (empty()){
-        cout << "Camión vacío" << endl;
+        cout << "Camión vacio" << endl;
     }
     else {
-        cout << "-------Camión " << ID << " -------" << endl;
+        cout << "-------Camion " << ID << " -------" << endl;
         int auxp = N3 - 1;
         int i=1;
         while (auxp != top) {
@@ -145,6 +129,23 @@ void Pila::show_Camion() {
     }
 }
 
+string Pila::to_stringPila() {
+    if (empty()){
+        return "Pila Vacia\n";
+    }
+    else {
+        string c ="";
+        c+="Camion"+ to_string(ID)+"\n";
+        int auxp = N3-1;
+        while (auxp!= top) {
+            c+= paquetes[auxp].toString();
+            auxp-=1;
+        }
+        c+= paquetes[auxp].toString();
+        c+="----------------------------\n";
+        return c;
+    }
+}
 Pila::~Pila() {}
 
 //Deconstructor

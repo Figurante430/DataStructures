@@ -2,6 +2,8 @@
 #include "Pila.hpp"
 #include "auxLib.hpp"
 #include <iostream>
+#include <fstream>
+
 void menu(void);
 void menuZona();
 void direccion_HUB(Cola &Central, Cola &zona_NE, Cola &zona_NO, Cola &zona_SE, Cola &zona_SO);
@@ -9,7 +11,7 @@ void saber_direccion (Cola &Central, Cola &zona_NE, Cola &zona_NO, Cola &zona_SE
 Pila cargarCamion(Cola &zona, Pila Camion, ColaCamiones &CamionesEnReparto, ColaCamiones &CamionesLibres, int &contador_camiones);
 void realizar_entrega_uno (ColaCamiones &colaCamiones, Cola &zona_entrega, int IDcamion, ColaCamiones &CamionesLibres);
 Pila cargarRestantes(Cola &zona, Pila Camion, ColaCamiones &CamionesEnReparto, ColaCamiones &CamionesLibres, int &contador_camiones);
-
+void doc_text (string t, string texto);
 
 int main() {
     int contador_camiones = 0; //sirve para identificar furgos
@@ -64,6 +66,7 @@ int main() {
 
     int opcion;
     string id_paquete;
+    string c;
 
     do
     {
@@ -175,11 +178,23 @@ int main() {
                 break;
             case 4:
                 copia.showCola();
+                doc_text("Paquetes", copia.toString());
                 break;
             case 5:
                 Central.showCola();
                 break;
             case 6:
+                c=CamionesLibres.toString();
+                c+=furgo_NE.to_stringPila();
+                c+=furgo_NO.to_stringPila();
+                c+=furgo_SE.to_stringPila();
+                c+=furgo_SO.to_stringPila();
+                c+= enReparto_NE.toString();
+                c+= enReparto_NO.toString();
+                c+= enReparto_SE.toString();
+                c+= enReparto_SO.toString();
+                doc_text("Camiones", c);
+
                 CamionesLibres.mostrarContentCamiones();
                 furgo_NE.show_Camion();
                 furgo_NO.show_Camion();
@@ -191,12 +206,24 @@ int main() {
                 enReparto_SO.mostrarContentCamiones();
                 break;
             case 7:
+                c=furgo_NE.to_stringPila();
+                c+=furgo_NO.to_stringPila();
+                c+=furgo_SE.to_stringPila();
+                c+=furgo_SO.to_stringPila();
+                doc_text("Camiones Hubs",c);
+
                 furgo_NE.show_Camion();
                 furgo_NO.show_Camion();
                 furgo_SE.show_Camion();
                 furgo_SO.show_Camion();
                 break;
             case 8:
+                c=entregados_NE.toString();
+                c+=entregados_NO.toString();
+                c+=entregados_SE.toString();
+                c+=entregados_SO.toString();
+                doc_text("Paquetes entregados", c);
+
                 entregados_NE.showCola();
                 entregados_NO.showCola();
                 entregados_SE.showCola();
@@ -210,7 +237,7 @@ int main() {
 
 void menu(void){
     cout<<"\t -------------------------------------------\n";
-    cout<<"\t|        IMPLEMENTACION DE UNA PILA         |\n";
+    cout<<"\t|                 APLICACION                |\n";
     cout<<"\t|-------------------------------------------|\n";
     cout<<" \t|                                           |"<<endl;
     cout<<" \t|  1. DIRECCIONAR Y CARGAR 73 PKTS          |"<<endl;
@@ -267,7 +294,7 @@ Pila cargarCamion(Cola &zona, Pila Camion, ColaCamiones &CamionesEnReparto, Cola
 
         Camion.setState(statePila[1]); //Cambiamos estado de camion
         if (CamionesLibres.empty()){
-            p.setState(1);
+            p.setState(2);
             Pila c(contador_camiones);
             c.push(p);
             return c;
@@ -275,7 +302,7 @@ Pila cargarCamion(Cola &zona, Pila Camion, ColaCamiones &CamionesEnReparto, Cola
         else{
             Pila c = CamionesLibres.dequeue();
             c.setState(statePila[0]);
-            p.setState(1);
+            p.setState(2);
             c.push(p);
             return c;
         }
@@ -324,4 +351,20 @@ void realizar_entrega_uno (ColaCamiones &colaCamiones, Cola &zona_entrega, int I
             CamionesLibres.enqueue(c); //Se lleva la furgoneta al almacen de furgos libres
         }
 }
+
+void doc_text (string t, string texto){
+    ofstream archivo(t);
+
+    // Verifica si el archivo se abrió correctamente
+    if (archivo.is_open()) {
+        // Escribe líneas en el archivo
+        archivo << texto << std::endl;
+        // Cierra el archivo
+        archivo.close();
+        std::cout << "Se escribió con éxito en el archivo 'output.txt'" << std::endl;
+    } else {
+        std::cerr << "No se pudo abrir el archivo 'output.txt'" << std::endl;
+    }
+}
+
 

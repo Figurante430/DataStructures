@@ -25,6 +25,7 @@ public:
     void showCola();
     bool empty (void);
     string returnState(string id_pkt);
+    string toString();
 };
 
 #endif //PL1DS_PCS_H

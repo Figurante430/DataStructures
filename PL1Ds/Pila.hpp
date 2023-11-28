@@ -7,7 +7,7 @@
 using namespace std;
 
 const int N3 = 24;
-const string statePila[4] = {"At HUB Zone", "In distribution", "Free"};
+const string statePila[3] = {"At HUB Zone", "In distribution", "Free"};
 
 class Pila{
 	private:
@@ -32,8 +32,8 @@ class Pila{
         bool full();
         void cambiar_estado_paquetes (int i);
         void entregar_paquetes(Cola &zona_entrega);
-        void terminar_entrega (Cola &zona_cliente);
         void show_Camion ();
+        string to_stringPila ();
 	    ~Pila();
 };
 

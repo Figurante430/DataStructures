@@ -109,8 +109,6 @@ Pila ColaCamiones::extract_truck(int identificador) {
     }
 }
 
-
-
 string ColaCamiones::returnState(string id_pkt){
     if (!empty()) {
         pointerPilas auxp;
@@ -162,6 +160,28 @@ void ColaCamiones::mostrarContentCamiones(){
             auxp=auxp->next;
         }
         auxp->p.show_Camion();
+    }
+}
+
+string ColaCamiones::toString() {
+    if (empty()){
+        return "Cola de camiones vacía\n";
+    }
+    else {
+        string c="";
+        if (front==rear){
+            c=front->p.to_stringPila();
+            return c;
+        }
+        else {
+            pointerPilas auxp=front;
+            while (auxp->next!=nullptr) {
+                c+=auxp->p.to_stringPila();
+                auxp=auxp->next;
+            }
+            c+=auxp->p.to_stringPila();
+            return c;
+        }
     }
 }
 

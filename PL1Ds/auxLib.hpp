@@ -6,7 +6,7 @@
 
 using namespace std;
 
-const int N1= 1000;
+const int N1= 3500;
 const int N2= 73;
 
 //Metodos para generar coordenadas:
