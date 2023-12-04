@@ -1,0 +1,3 @@
+C:/Users/gonza/CLionProjects/PL1Ds/cmake-build-debug/CMakeFiles/PL1Ds.dir
+C:/Users/gonza/CLionProjects/PL1Ds/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/gonza/CLionProjects/PL1Ds/cmake-build-debug/CMakeFiles/rebuild_cache.dir
